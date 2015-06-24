@@ -1,0 +1,33 @@
+##################################################################
+#
+# Usage notes
+#
+# Lines that start with '#' are comments. 
+# '*' is not greedy, only matches in current dir
+# '**' is greedy will match all subdirs
+# '\' is an escape char for example file which starts with # or \
+# '!' can be used for negate pattern
+##################################################################
+
+# Exclude VS compiled #
+#######################
+
+[Oo]bj/
+[Bb]in/
+[Tt]estresults/
+GKDebug/
+GKRelease/
+
+*.suo
+*.user
+*.cache
+*.coverage.html
+*.DotSettings
+*.ncrunchproject
+*.ncrunchsolution
+
+[Mm]olesAssemblies/
+[Ff]akesAssemblies/
+AppLog/
+packages/LogMeIn.Infrastructure.DiagIpFilter.1.0.7/content/config/common/diagIpFilter.config
+packages/LogMeIn.Infrastructure.DiagIpFilter.1.0.7/content/web.diagIpFilter.sample.config

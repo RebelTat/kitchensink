@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/joinme-bootstrap-theme.css" rel="stylesheet">
+    <link href="css/kitchensink.css" rel="stylesheet">
+
+    <script src="js/jquery/jquery.min.1.11.2.js"></script>
+
+    <script>
+        var params = {}, queryString = location.hash.substring(1), regex = /([^&=]+)=([^&]*)/g, m;
+        while (m = regex.exec(queryString)) {
+            params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+        }
+
+        if (params["access_token"]) {
+            $.post(
+                'oauth/v1/Cookie',
+                { '': params["access_token"] },
+                function () {
+                    top.location.href = "/";
+                });
+        } else {
+            top.location.href = "/";
+        }
+    </script>
+</head>
+<body>
+    <div id="oauthProgressBar">
+        <div class="progress panel-progress">
+            <div class="progress-bar panel-progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+                Processing OAuth Credentials...
+            </div>
+        </div>
+    </div>
+</body>
+</html>

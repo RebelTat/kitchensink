@@ -1,0 +1,142 @@
+﻿#oauth-needed {
+    text-align: center;
+}
+
+.oauth-needed-description {
+    margin-bottom: 30px;
+}
+
+#oauthProgressBar {
+    width: 60%;
+    margin: auto;
+    margin-top: 150px;
+}
+
+#userProgressBar {
+    width: 70%;
+    margin: auto;
+    margin-top: 35px;
+}
+
+#scheduledProgressBar {
+    width: 70%;
+    margin: auto;
+    margin-top: 70px;
+}
+
+#modalProgressBar {
+    margin: auto;
+    margin-top: 150px;
+    width: 70%;
+}
+
+.progress.panel-progress {
+    height: 40px;
+}
+
+#oauthProgressBar .progress.panel-progress {
+    height: 60px;
+}
+
+#oauthProgressBar .progress-bar-striped, .progress-striped .progress-bar {
+    background-size: 60px 60px;
+}
+
+.progress-bar.panel-progress-bar {
+    font-size: 18px;
+    padding-top: 10px;
+}
+
+#oauthProgressBar .progress-bar.panel-progress-bar {
+    font-size: 30px;
+    padding-top: 20px;
+    font-weight: bold;
+}
+
+#oauth {
+    margin: 30px;
+}
+
+#startPanel {
+    min-height: 250px;
+}
+
+#startAdHocButtonContainer {
+    text-align: center;
+    margin-top: 35px;
+}
+
+#userPanel {
+    min-height: 250px;
+}
+
+#userName {
+    height: 46px;
+}
+
+.hide {
+    display: none;
+}
+
+.kitchen-sink-modal {
+    min-height: 400px;   
+}
+
+.kitchen-sink-modal label {
+    width: 225px;
+}
+
+.modal-div {
+    height: 50px;
+}
+
+.modal-div.participants {
+    height: 125px;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.modal-div.participants .modal-form.form-control {
+    resize: none;
+}
+
+.modal-form {
+    float: right;
+}
+
+.modal-form.form-control {
+    width: 300px;
+}
+
+.modal-form.date {
+    width: 300px;
+}
+
+#modal-sched-alert.alert {
+    padding: 7px;
+    margin-bottom: 0;
+}
+
+#scheduledMeetingsPanel {
+    min-height: 300px;
+}
+
+.schedule-button {
+    margin-bottom: 20px;
+}
+
+#scheduledPanelNoContent {
+    font-size: 28px;
+    padding-top: 20px;
+    padding-left: 40px;
+    font-weight: bold;
+}
+
+.input-group-addon {
+    background-color: #fd932a;
+}
+
+.modal-footer button {
+    width: 100px;
+}
