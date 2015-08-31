@@ -74,6 +74,10 @@
     height: 46px;
 }
 
+.conf-settings {
+    margin-top: 25px;
+}
+
 .hide {
     display: none;
 }

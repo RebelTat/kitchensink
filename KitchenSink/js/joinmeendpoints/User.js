@@ -19,6 +19,15 @@ JM.EndPoints.User = (function ($, OAuthHandler) {
                 $("#registrationDate").html(data.registrationDate);
                 $("#subscriptionType").html(data.subscriptionType);
                 $("#numberOfMeetingsHosted").html(data.numberOfMeetingsHosted);
+
+                if (data.conferenceSettings) {
+                    $("#conferenceId").html(data.conferenceSettings.conferenceId);
+                    $("#conferenceCallNumbersUrl").html('<a href="' + data.conferenceSettings.conferenceCallNumbersUrl + '" target="_blank">Conference Call Numbers</a>');
+                    $("#organizerCode").html(data.conferenceSettings.organizerCode);
+                } else {
+                    $("#confSettingsRow").addClass("hide");
+                }
+
                 $("#userProgressBar").addClass("hide");
                 $("#userPanelContent").removeClass("hide");
             },

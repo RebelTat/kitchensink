@@ -72,6 +72,27 @@
                                 <div class="col-xs-6">Number of Meetings Hosted:</div>
                                 <div id="numberOfMeetingsHosted" class="col-xs-6"></div>
                             </div>
+                            <div id="confSettingsRow" class="row conf-settings">
+                                <div class="col-xs-4">Conference Settings:</div>
+                                <div id="conferenceSettings" class="col-xs-8">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-xs-6">Conference ID:</div>
+                                                <div id="conferenceId" class="col-xs-6"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">Conference Call Numbers URL:</div>
+                                                <div id="conferenceCallNumbersUrl" class="col-xs-6"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">Organizer Code:</div>
+                                                <div id="organizerCode" class="col-xs-6"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
