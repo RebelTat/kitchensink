@@ -6,12 +6,6 @@
     margin-bottom: 30px;
 }
 
-#oauthProgressBar {
-    width: 60%;
-    margin: auto;
-    margin-top: 150px;
-}
-
 #userProgressBar {
     width: 70%;
     margin: auto;
@@ -34,23 +28,9 @@
     height: 40px;
 }
 
-#oauthProgressBar .progress.panel-progress {
-    height: 60px;
-}
-
-#oauthProgressBar .progress-bar-striped, .progress-striped .progress-bar {
-    background-size: 60px 60px;
-}
-
 .progress-bar.panel-progress-bar {
     font-size: 18px;
     padding-top: 10px;
-}
-
-#oauthProgressBar .progress-bar.panel-progress-bar {
-    font-size: 30px;
-    padding-top: 20px;
-    font-weight: bold;
 }
 
 #oauth {

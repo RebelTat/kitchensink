@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="KitchenSink.Default" %>
-<%@ Import Namespace="KitchenSink.Controllers" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,18 +21,18 @@
               <a class="navbar-brand">join.me - API Kitchen Sink</a>
             </div>
         </div>
-    </nav>
+      </nav>
     
-    <div id="oauth-needed" <% if (this.IsCookiePresent()) { %>style="display:none"<% } %>>
+    <div id="oauth-needed" style="display:none">
         <div class="container">
             <div class="oauth-needed-description lead">Welcome to the join.me api kitchen sink application!</div>
             <div class="oauth-needed-description lead">This application has been built to help familiarize our developer community with the functionality of the join.me api.  To get started, simply grant OAuth access by clicking the button below.  This access will be kept for 24 hours, at which point you will be prompted to do so again.  You can always revoke access later at <a href="https://join.me">join.me</a>.</div>
             <div class="oauth-needed-description lead">For more details, please visit <a href="https://developer.join.me/">https://developer.join.me</a>. Enjoy!</div>
-            <div><a class="btn btn-primary btn-lg" href="<%= this.GetOAuthUrl() %>" role="button">Allow join.me OAuth Access</a></div>
+            <div><a id="oauthbutton" class="btn btn-primary btn-lg" href="javascript:void(0);" role="button">Allow join.me OAuth Access</a></div>
         </div>
     </div>
 
-    <div id="oauth" <% if (!this.IsCookiePresent()) { %>style="display:none"<% } %>>
+    <div id="oauth" style="display:none">
         <div class="row">
             <div class="col-md-6">
                 <div id="userPanel" class="panel panel-default">
@@ -127,14 +126,16 @@
                         <div id="scheduledPanelContent" class="hide">
                             <button type="button" class="schedule-button btn btn-primary btn-lg" data-toggle="modal" data-target="#contentModal" data-triggervalue="scheduleMeeting">Schedule</button>
                             <table id="scheduledMeetingsTable" class="table">
-                                <tr>
-                                    <th>Meeting Name</th>
-                                    <th>Meeting Start</th>
-                                    <th>Meeting End</th>
-                                    <th>Start Meeting</th>
-                                    <th>UpdateMeeting</th>
-                                    <th>Delete Meeting</th>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>Meeting Name</th>
+                                        <th>Meeting Start</th>
+                                        <th>Meeting End</th>
+                                        <th>Start Meeting</th>
+                                        <th>UpdateMeeting</th>
+                                        <th>Delete Meeting</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
                                 </tbody>
                             </table>
@@ -174,7 +175,8 @@
             </div>
         </div>
     </div>
-
+      
+    <script src="js/hello/hello.all.min.js"></script>
     <script src="js/handlebars/handlebars-v3.0.3.js"></script>
     <script src="js/json2/json2.js"></script>
     <script src="js/jquery/jquery.min.1.11.2.js"></script>
@@ -188,12 +190,45 @@
     <script src="js/joinmeendpoints/StartMeeting.js"></script>
     <script src="js/joinmeendpoints/ScheduleMeetings.js"></script>
     <script src="js/DefaultPageController.js"></script>
+      
+      <script>
+          $(function () {
+              hello.init({
+                  joinme: '<%= this.APIKey %>'
+              },
+              {
+                  scope: 'user_info,scheduler,start_meeting',
+                  force: false
+              });
 
-    <% if (this.IsCookiePresent()) { %>
-        <script>
-            JM.OAuthHandler.Init('<%= this.GetAccessToken() %>');
-            JM.DefaultPageController.Init('<%= this.GetCookieValue() %>');
-        </script>
-    <% } %>
+              var joinme = hello("joinme");
+
+              function login() {
+                  joinme.login().then(function () {
+                      // Success
+                      $("#oauth-needed").hide();
+                      $("#oauth").show();
+                      JM.OAuthHandler.Init('<%= this.APIKey %>');
+                      JM.DefaultPageController.Init();
+                  }, function () {
+                      // Fail
+                      $("#oauth").hide();
+                      $("#oauth-needed").show();
+                  });
+              }
+
+              var session = joinme.getAuthResponse();
+              var currentTime = (new Date()).getTime() / 1000;
+
+              if (session && session.access_token && session.expires > currentTime) {
+                  // Already has a valid token, perform login
+                  login();
+              } else {
+                  $("#oauth-needed").show();
+              }
+
+              $('#oauthbutton').on('click', login);
+          });
+      </script>
   </body>
 </html>

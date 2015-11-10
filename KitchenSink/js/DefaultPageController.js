@@ -1,6 +1,6 @@
 ﻿var JM = window.JM || {};
 
-JM.DefaultPageController = (function ($) {
+JM.DefaultPageController = (function ($, templateManager) {
     var _validateScheduleFormData = function () {
         if ($("#meetingName").val() === "" || $("#meetingStart").val() === "" || $("#meetingEnd").val() === "") {
             $('#modal-submit-button').prop('disabled', true);
@@ -21,7 +21,7 @@ JM.DefaultPageController = (function ($) {
     };
 
     var _addScheduleFormData = function (meetingName, startMeetingDateTime, endMeetingDateTime, participants) {
-        $('#contentModalBodyContent').append(JM.TemplateManager.GetSchedulerForm(meetingName));
+        $('#contentModalBodyContent').append(templateManager.GetSchedulerForm(meetingName));
 
         if (meetingName === "" || $("#meetingStart").val() === "" || $("#meetingEnd").val() === "") {
             $('#modal-submit-button').prop('disabled', true);
@@ -48,9 +48,9 @@ JM.DefaultPageController = (function ($) {
         _validateScheduleFormData();
     };
 
-    var _init = function (accessToken) {
-        JM.EndPoints.User.ProcessUserEndPoint(accessToken);
-        JM.EndPoints.ScheduleMeetings.GetScheduledMeetings(accessToken);
+    var _init = function () {
+        JM.EndPoints.User.ProcessUserEndPoint();
+        JM.EndPoints.ScheduleMeetings.GetScheduledMeetings();
 
         $('#contentModal').on('show.bs.modal', function (event) {
             $("#contentModalBodyContent").empty();
@@ -62,10 +62,10 @@ JM.DefaultPageController = (function ($) {
 
             if (recipient === 'startAdHoc') {
                 modal.find('.modal-title').text('Starting ad hoc Meeting');
-                JM.EndPoints.StartMeeting.StartAdHocMeeting(accessToken);
+                JM.EndPoints.StartMeeting.StartAdHocMeeting();
             } else if (recipient.length > 15 && recipient.substring(0, 15) === "startScheduled-") {
                 modal.find('.modal-title').text('Starting Scheduled Meeting');
-                JM.EndPoints.StartMeeting.StartScheduledMeeting(accessToken, recipient.substring(15));
+                JM.EndPoints.StartMeeting.StartScheduledMeeting(recipient.substring(15));
             } else if (recipient === 'scheduleMeeting') {
                 $("#modal-submit-button").removeClass("hide");
 
@@ -83,7 +83,6 @@ JM.DefaultPageController = (function ($) {
                     }
 
                     JM.EndPoints.ScheduleMeetings.ScheduleMeeting(
-                        accessToken,
                         ($("#adHocUsePURLModal").is(':checked')),
                         $("#meetingName").val(),
                         $("#meetingStart").val(),
@@ -98,7 +97,7 @@ JM.DefaultPageController = (function ($) {
 
                 modal.find('.modal-title').text('Update Scheduled Meeting');
 
-                JM.EndPoints.ScheduleMeetings.GetScheduledMeeting(accessToken, meetingId, function (data) {
+                JM.EndPoints.ScheduleMeetings.GetScheduledMeeting(meetingId, function (data) {
                     _addScheduleFormData(
                         data.meetingName,
                         data.meetingStart,
@@ -118,7 +117,6 @@ JM.DefaultPageController = (function ($) {
                         }
 
                         JM.EndPoints.ScheduleMeetings.UpdateMeeting(
-                            accessToken,
                             meetingId,
                             ($("#adHocUsePURLModal").is(':checked')),
                             $("#meetingName").val(),
@@ -137,4 +135,4 @@ JM.DefaultPageController = (function ($) {
     return {
         Init: _init
     };
-}(jQuery, JM.OAuthHandler, JM.TemplateManager));
+}(jQuery, JM.TemplateManager));
