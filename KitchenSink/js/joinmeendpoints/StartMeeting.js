@@ -1,7 +1,7 @@
 ﻿var JM = window.JM || {};
 JM.EndPoints = JM.EndPoints || {};
 
-JM.EndPoints.StartMeeting = (function ($, OAuthHandler) {
+JM.EndPoints.StartMeeting = (function ($, OAuthHandler, hello) {
     "use strict";
 
     var _addPresenterIframe = function (presenterLink) {
@@ -14,47 +14,26 @@ JM.EndPoints.StartMeeting = (function ($, OAuthHandler) {
         }).appendTo('#contentModalBodyContent');
     };
 
-    var _startAdHocMeeting = function (accessToken) {
-        $.ajax({
-            url: "https://api.join.me/v1/meetings/start",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
-            },
-            method: "POST",
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
-            data: "{ \"startWithPersonalUrl\":\"" + $("#adHocUsePURL").is(':checked') + "\"}",
-            success: function (data) {
-                _addPresenterIframe(data.presenterLink);
-            },
-            error: function (data) {
-                OAuthHandler.HandleOAuthErrorResponse(data, accessToken);
-            }
-        });
+    var _startAdHocMeeting = function () {
+        hello('joinme').api('meetings/start/adhoc', 'post', {
+            startWithPersonalUrl: $("#adHocUsePURL").is(":checked")
+        }).then(function(data) {
+            _addPresenterIframe(data.presenterLink);
+        }, OAuthHandler.HandleOAuthErrorResponse);
     };
 
-    var _startScheduledMeeting = function(accessToken, meetingId) {
+    var _startScheduledMeeting = function(meetingId) {
         if ($('#presenterFrame')) {
             $('#presenterFrame').remove();
         }
 
-        $.ajax({
-            url: "https://api.join.me/v1/meetings/" + meetingId + "/start",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
-            },
-            method: "POST",
-            success: function (data) {
-                _addPresenterIframe(data.presenterLink);
-            },
-            error: function (data) {
-                OAuthHandler.HandleOAuthErrorResponse(data, accessToken);
-            }
-        });
+        hello('joinme').api('meetings/start/scheduled', 'post', { meetingId: meetingId }).then(function(data) {
+            _addPresenterIframe(data.presenterLink);
+        }, OAuthHandler.HandleOAuthErrorResponse);
     };
 
     return {
         StartAdHocMeeting: _startAdHocMeeting,
         StartScheduledMeeting: _startScheduledMeeting
     };
-}(jQuery, JM.OAuthHandler));
+}(jQuery, JM.OAuthHandler, hello));

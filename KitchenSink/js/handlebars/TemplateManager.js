@@ -41,7 +41,7 @@ JM.TemplateManager = (function ($) {
                 + '<td class="sched-meeting-end">{{meetingEnd}}</td>'
                 + '<td><button id="meetingidstart-{{meetingId}}" class="btn btn-primary" data-toggle="modal" data-target="#contentModal" data-triggervalue="startScheduled-{{meetingId}}">Start</button></td>'
                 + '<td><button id="meetingidupdate-{{meetingId}}" class="btn btn-primary" data-toggle="modal" data-target="#contentModal" data-triggervalue="updateScheduled-{{meetingId}}">Update</button></td>'
-                + '<td><button id="meetingiddelete-{{meetingId}}" class="btn btn-primary" data-loading-text="Deleting..." onclick="JM.EndPoints.ScheduleMeetings.DeleteMeeting(\'{{accessToken}}\', \'{{meetingId}}\');">Delete</button></td>'
+                + '<td><button id="meetingiddelete-{{meetingId}}" class="btn btn-primary" data-loading-text="Deleting..." onclick="JM.EndPoints.ScheduleMeetings.DeleteMeeting(\'{{meetingId}}\');">Delete</button></td>'
                 + '</tr>';
             _meetingRowTemplate = Handlebars.compile(rawTemplate);
         }
