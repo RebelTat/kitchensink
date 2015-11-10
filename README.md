@@ -14,7 +14,9 @@ After this, the individual endpoints are all called in the js/joinmeendpoints fo
 
 This code is runnable with some simple setup:
 1. Download this and open the solution file in Visual Studio 2013.
+
 2. Open Web.config, and fill in the APIKey app setting with the key from your application on the https://developer.join.me site.
+
 3. Ensure that the redirect uri of your application on the https://developer.join.me site is equal to the homepage of the kitchensink app where you intend to host it. For example, if you are running it locally on https://localhost:443/ or http://localhost/KitchenSink/ , that should be your redirect uri. Note that this is the default redirect uri used by hello.js which is equal to the url of the current page when hello.js is embeded. hello.js also allows using a custom redirect uri, which is shown on their page, however it is important to note that the page at the redirect uri must also include the hello.js library or the accessToken returned can not be written to localStorage.
 
 ### Special Thanks
