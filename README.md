@@ -13,6 +13,7 @@ After this, the individual endpoints are all called in the js/joinmeendpoints fo
 ### Setting it up on your own instance
 
 This code is runnable with some simple setup:
+
 1. Download this and open the solution file in Visual Studio 2013.
 
 2. Open Web.config, and fill in the APIKey app setting with the key from your application on the https://developer.join.me site.
